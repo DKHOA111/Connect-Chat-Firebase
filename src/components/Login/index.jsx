@@ -41,10 +41,6 @@ const Login = () => {
           </span>
         </div>
         <div className="login">
-          <div className="login-btn f">
-            <i className="fa-brands fa-facebook-f"></i> &nbsp; Login with
-            facebook
-          </div>
           <div className="login-btn g" onClick={signInGoogle}>
             <i className="fa-brands fa-google"></i> &nbsp; Login with google
           </div>

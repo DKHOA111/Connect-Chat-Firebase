@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import { Button, ButtonGroup, Form, InputGroup, Modal } from "react-bootstrap";
+import { Button, Form, InputGroup, Modal, Offcanvas } from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../../firebase/Config";
 
@@ -22,6 +22,7 @@ const ChatSpace = () => {
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [show, setSow] = useState(false);
+  const [showM, setSowM] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ const ChatSpace = () => {
     e.preventDefault();
     if (message === "") return;
 
-    await addDoc(messageRef, {
+    const newMessageRef = await addDoc(messageRef, {
       text: message,
       createdAt: serverTimestamp(),
       avatar: user.avatar,
@@ -71,6 +72,13 @@ const ChatSpace = () => {
     });
 
     setMessage("");
+
+    if (newMessageRef && newMessageRef.id) {
+      const newMessageElement = document.getElementById(newMessageRef.id);
+      if (newMessageElement) {
+        newMessageElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   return (
@@ -102,18 +110,21 @@ const ChatSpace = () => {
           <div className="header">
             <h4>{room}</h4>
             <div>
-              <Button>
-                <i className="fa-solid fa-user-plus"></i> &nbsp;Invite{" "}
-              </Button>
               &nbsp;
               <Button variant="danger" onClick={() => setRoom("")}>
                 <i className="fa-solid fa-right-from-bracket"></i> Out Room
               </Button>
+              &nbsp;
+              <div className="m-op">
+                <Button variant="outline-dark" onClick={() => setSowM(true)}>
+                  <i className="fa-solid fa-bars"></i>
+                </Button>
+              </div>
             </div>
           </div>
           <div className="message">
             {messageList.map((message) => (
-              <div key={message.id}>
+              <div key={message.id} id={message.id}>
                 <div className="message-info">
                   <img src={message.avatar} alt="avatar" />
                   &nbsp;
@@ -125,7 +136,7 @@ const ChatSpace = () => {
                     </span>
                   )}
                 </div>
-                <div style={{ marginLeft: "50px" }}>
+                <div style={{ marginLeft: "50px", wordWrap: "break-word" }}>
                   <span>{message.text}</span>
                 </div>
               </div>
@@ -174,6 +185,30 @@ const ChatSpace = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <Offcanvas show={showM} onHide={() => setSowM(false)}>
+        <Offcanvas.Header closeButton></Offcanvas.Header>
+        <div>
+          {user ? (
+            <>
+              <img src={user.avatar} alt="avatar" />
+              {user.name}
+            </>
+          ) : (
+            <p>Please log in</p>
+          )}
+        </div>
+        <div
+          className="log-out"
+          onClick={() => {
+            setUser(null);
+            signOut(auth);
+          }}
+        >
+          Log out &nbsp;{" "}
+          <i className="fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+      </Offcanvas>
     </div>
   );
 };
