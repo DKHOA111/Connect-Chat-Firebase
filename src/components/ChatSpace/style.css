@@ -1,0 +1,128 @@
+.chat-room {
+  display: flex;
+}
+.chat-content {
+  width: 100%;
+  position: relative;
+}
+.header-sidebar {
+  align-items: center;
+  position: relative;
+  color: white;
+}
+.header-sidebar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px;
+}
+.header-sidebar button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.side-bar {
+  height: 100vh;
+  width: 400px;
+  position: relative;
+  background: linear-gradient(90.21deg, #41163080 -5.91%, #9c2fbd80 111.58%);
+}
+
+.room-list {
+  max-height: 77vh;
+  overflow-y: scroll;
+}
+
+.room-list::-webkit-scrollbar {
+  width: 12px; /* width of the scrollbar */
+}
+
+.room-list::-webkit-scrollbar-thumb {
+  background-color: #b10bc0; /* color of the thumb */
+}
+.room {
+  color: rgb(1, 1, 123);
+  font-size: 15px;
+  padding: 10px;
+}
+.room:hover {
+  background-color: #880d93;
+}
+
+.add:hover {
+  background-color: #880d93;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  box-shadow: 0px 0px 7px #666;
+  height: 100px;
+}
+
+.add-message {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 10px;
+  box-shadow: 0px 0px 7px #666;
+}
+.message {
+  margin: 20px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+.message::-webkit-scrollbar {
+  display: none;
+}
+
+.message-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.wait-room {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 30px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.add {
+  height: 50px;
+  background-color: #9d05ab;
+  width: 300px;
+
+  bottom: 0;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.log-out {
+  height: 50px;
+  background-color: #9d05ab;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
